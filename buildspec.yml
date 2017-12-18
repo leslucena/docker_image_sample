@@ -1,0 +1,13 @@
+version: 0.1
+
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login)
+      - IMAGE_URI="589954089043.dkr.ecr.ap-southeast-2.amazonaws.com/devops/sample_repo:latest"
+  build:
+    commands:
+      - docker build --tag "$IMAGE_URI" .
+  post_build:
+    commands:
+      - docker push "$IMAGE_URI"
